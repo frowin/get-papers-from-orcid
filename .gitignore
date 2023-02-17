@@ -1,0 +1,10 @@
+
+.env
+
+.user.ini
+
+.DS_Store
+
+composer.lock
+
+vendor/
