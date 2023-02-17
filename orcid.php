@@ -2,29 +2,21 @@
 declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 
-error_log('Your message here');
+use GuzzleHttp\Client; // set namespace for GuzzleHttp
 
+require_once('vendor/autoload.php'); // load composer autoload
 
-use GuzzleHttp\Client;
-//use Dotenv\Dotenv;
-
-require_once('vendor/autoload.php');
-
-
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__); // fetch env variables
 
 $dotenv->load();
 
+$client_id          = $_ENV["CLIENT_ID"];           // Insert your data
+$client_secret      = $_ENV["CLIENT_SECRET"];       // Insert your data
+$bearer_token       = $_ENV["BEARER_TOKEN"];        // Insert your data
+$record_url         = $_ENV["RECORD_URL"];          // Insert your data
 
 
-$client_id          = $_ENV["CLIENT_ID"];
-$client_secret      = $_ENV["CLIENT_SECRET"];
-$bearer_token       = $_ENV["BEARER_TOKEN"];
-$record_url         = $_ENV["RECORD_URL"];
-
-
-$requestData = [
+$requestData = [    // build request
     'debug' => false,
     'query' => [
         "client_id" => $client_id,
@@ -42,6 +34,6 @@ $client = new Client([]);
 
 $response = $client->request('GET', $record_url, $requestData);
 
-echo($response->getBody()->getContents());
+die($response->getBody()->getContents()); // echo result in JSON format
 
 ?>
